@@ -1,0 +1,13 @@
+.content {
+    position: absolute;
+    padding-top: 75px;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+  }
+
+  input:read-only {
+    background-color: grey;
+  }

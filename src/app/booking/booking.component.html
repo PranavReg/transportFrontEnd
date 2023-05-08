@@ -1,0 +1,16 @@
+<div class="content">
+<div class="container col-lg-5">
+<table class="table" height="80px" width="75px">
+    <tr>
+        <th scope="col" font-size="80px">Bus Stop Address</th>
+        <th scope="col">Schedule Time</th>
+    </tr>
+    <tbody >
+        <tr *ngFor="let booking of bookingDetails">
+            <td>{{booking.stopName}}</td>
+            <td>{{booking.timeSlot}}</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+</div>

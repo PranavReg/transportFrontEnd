@@ -1,0 +1,34 @@
+<div class="split left">
+  <div class="container col-lg-5">
+<select class="form-select" [(ngModel)]="selectedValue" (change)="fetchTimings(selectedValue)">
+  <option *ngFor="let option of options" [value]="option" >{{option}}</option>
+</select>
+<table class="table" height="40px" width="75px">
+  <tr>
+      <th scope="col">Bus Schedule Timings</th>
+  </tr>
+  <tbody >
+      <tr *ngFor="let slot of timeSlots">
+          <td>{{slot}}</td>
+          <td><button (click)="gotoBooking(slot)"  class="btn btn-md btn-primary btn-style">Book</button></td>
+      </tr>
+  </tbody>
+</table>
+<button class="btn btn-md btn-primary btn-style" (click)="getBookings()">My Bookings</button>
+</div>
+</div>
+
+<div class="split right">
+<google-map height="400px"
+            width="750px"
+            [center]="center"
+            [zoom]="zoom"
+            (mapInitialized)="markAddress()">
+
+            <map-marker *ngFor="let markerPosition of markerPositions"
+              [position]="markerPosition"
+              [options]="markerOptions"></map-marker>
+              <map-directions-renderer *ngIf="(directionsResults | async) as directionsResults"
+                           [directions]="directionsResults"></map-directions-renderer>
+</google-map>
+</div>
