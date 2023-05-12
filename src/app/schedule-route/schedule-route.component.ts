@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ShuttleScheduleService } from '../services/schedule-route.service';
 import { GoogleMapsModule, MapDirectionsService } from '@angular/google-maps'
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { ActivatedRoute, Router, RouterState } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-shuttle-routes',
@@ -11,10 +12,11 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./schedule-route.component.css']
 })
 
-export class ScheduleRouteComponent implements OnInit{
+export class ScheduleRouteComponent{
 
-constructor(private authService: AuthService,private _service:ShuttleScheduleService,private mapDirectionsService: MapDirectionsService, private router:Router) {}
-    
+    constructor(private mapDirectionsService: MapDirectionsService,private _service: ShuttleScheduleService, private _http: HttpClient,private router:Router, private authService:AuthService){}
+
+       
 ngOnInit(): void {}
   display: any;
   center: google.maps.LatLngLiteral = {
@@ -22,6 +24,7 @@ ngOnInit(): void {}
       lng: -83.175941
   };
   zoom = 10;
+  
 
   markerOptions: google.maps.MarkerOptions = {
     draggable: false
@@ -39,8 +42,9 @@ addressText=[]
 result:any;
 isFinished = false;
 //routePositions: google.maps.LatLngLiteral[] = [];
-markAddress()
+
 async markAddress(){
+    console.log("inside markAddress")
     this.addresses=this._service.getRouteDetails();
     this.addressText=[this.addresses[0]["stopName1"],this.addresses[0]["stopName2"],this.addresses[0]["stopName3"]];
 
@@ -82,6 +86,7 @@ geoCoderFunction(address): any{
 
 
 directionsResults: Observable<google.maps.DirectionsResult>;
+//mapDirectionsService: google.maps.DirectionsService;
 
 async routDesign(){
     //this.directionsService = new google.maps.DirectionsService();
@@ -124,6 +129,34 @@ logout() {
 
 
 }
+
+
+googleMapsScriptIsInjected = false;
+
+GoogleAPIoptions={key:"AIzaSyDEbhg3mmuXOd5warRkmGdpDiAnU_9-aHc",callBack:'markAddress'}
+
+injectGoogleMapsApiScript({GoogleAPIoptions})
+
+injectGoogleMapsApiScript (options){
+    console.log("inside inject")
+    if (this.googleMapsScriptIsInjected) {
+      throw new Error('Google Maps Api is already loaded.');
+    }
+  
+    const optionsQuery = Object.keys(options)
+      .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(options[k])}`)
+      .join('&');
+  
+    const url = `https://maps.googleapis.com/maps/api/js?${optionsQuery}`;
+  
+    const script = document.createElement('script');
+  
+    script.setAttribute('src', url);
+    script.setAttribute('async', '');
+    script.setAttribute('defer', '');
+  
+    document.head.appendChild(script);
+  
+    this.googleMapsScriptIsInjected = true;
+  };
 }
-
-
