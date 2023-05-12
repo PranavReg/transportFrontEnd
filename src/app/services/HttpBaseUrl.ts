@@ -1,4 +1,4 @@
 export class HttpBaseUrl {
 
-    static baseURL: string = 'http://localhost:8080';
+    static baseURL: string = 'http://34.207.70.203:80';
 }
