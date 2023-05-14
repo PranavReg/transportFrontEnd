@@ -42,7 +42,6 @@ export class ScheduleBookComponent {
 }
 
 bookSchedule(){
-  console.log(this.bookingDetails)
 this.bookingService.scheduleRide(this.bookingDetails).subscribe(
   data=>{
     alert("Booking Successful");

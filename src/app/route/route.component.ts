@@ -19,7 +19,6 @@ export class RouteComponent {
     this.sub = this._route.params.subscribe(params => {
       this.idParam = params['id'];
     })
-    console.log(this.idParam);
     this.service.getRouteDetails(this.idParam).subscribe(
       data=>{
         this.routeDetails=data;

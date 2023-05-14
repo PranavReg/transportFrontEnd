@@ -44,7 +44,6 @@ isFinished = false;
 //routePositions: google.maps.LatLngLiteral[] = [];
 
 async markAddress(){
-    console.log("inside markAddress")
     this.addresses=this._service.getRouteDetails();
     this.addressText=[this.addresses[0]["stopName1"],this.addresses[0]["stopName2"],this.addresses[0]["stopName3"]];
 
@@ -138,7 +137,6 @@ GoogleAPIoptions={key:"AIzaSyDEbhg3mmuXOd5warRkmGdpDiAnU_9-aHc",callBack:'markAd
 injectGoogleMapsApiScript({GoogleAPIoptions})
 
 injectGoogleMapsApiScript (options){
-    console.log("inside inject")
     if (this.googleMapsScriptIsInjected) {
       throw new Error('Google Maps Api is already loaded.');
     }

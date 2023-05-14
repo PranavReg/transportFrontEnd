@@ -10,7 +10,6 @@ export class BookingService {
   constructor(private _http:HttpClient) { }
 
   scheduleRide(booking){
-    console.log(booking)
     const params = new HttpParams()
       .set('id', booking.studentId).set('time',booking.timing);
     //return this._http.post<any>("http://ec2-54-172-3-73.compute-1.amazonaws.com:8080/scheduleRide",booking);
